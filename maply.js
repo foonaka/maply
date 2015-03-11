@@ -1,7 +1,4 @@
-// $.get(url).done(function(data) {
-//    var location = data.results[0].geometry.location;
-//     // alert('lat: ' + location.lat + '\n\nlng: ' + location.lng);
-//   });
+(function() {
 
 var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
@@ -58,3 +55,4 @@ $('form#geocoder').submit(function(ev) {
 
   });
 });
+})();
