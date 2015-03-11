@@ -22,6 +22,8 @@ new google.maps.Marker({
     title:"Eleven Fifty Coding Academy"
 });
 
+var bounds = new google.maps.LatLngBounds();
+
 // Watch for form submit
 $('form#geocoder').submit(function(ev) {
   ev.preventDefault();
@@ -30,17 +32,22 @@ $('form#geocoder').submit(function(ev) {
   // Ask Google for the address coordinates
   $.get(url + address).success(function(data) {
     var location = data.results[0].geometry.location;
+
+    // Make coordinates object
+    var coords = new google.maps.LatLng(location.lat, location.lng);
+
     var map_options = {
-      center: {
-        lat: location.lat,
-        lng: location.lng
-      },
+      center: coords,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.HYBRID
     };
 
     // Move map to new coordinates
     map.setOptions(map_options);
+
+    // Fit all markers on the map
+    bounds.extend(coords);
+    map.fitBounds(bounds);
 
     // Add marker
     var marker = new google.maps.Marker({
